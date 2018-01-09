@@ -4,14 +4,18 @@ class Animation extends React.Component {
 
   constructor(props) {
     super(props);
-
+    
     this.state = {
       url: ' http://placehold.it/500x150'
     };
   }
 
+  componentWillUpdate() {
+    this.showLoadingBar();
+  }
+
   getNewCat = () => {
-    fetch('http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC')
+    fetch('https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC')
       .then((res, err) => {
         if (err) {
           console.log('Something went wrong with fetching your new cat!', err)
@@ -19,7 +23,7 @@ class Animation extends React.Component {
           return res.json()
         }
       })
-      .then(result => this.setState({
+      .then(result => this.setState({ 
         url: result.data.fixed_height_downsampled_url
       }));
   }
